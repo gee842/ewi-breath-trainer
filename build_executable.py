@@ -199,11 +199,11 @@ def main():
     # Create release package
     if create_release_package():
         platform_name, _ = get_platform_info()
-        print(f"\n✅ Build complete!")
-        print(f"📦 Release package: release-{platform_name}/")
-        print(f"🚀 Ready for GitHub release!")
+        print(f"\n[SUCCESS] Build complete!")
+        print(f"[PACKAGE] Release package: release-{platform_name}/")
+        print(f"[READY] Ready for GitHub release!")
     else:
-        print("❌ Failed to create release package")
+        print("[ERROR] Failed to create release package")
         sys.exit(1)
 
 if __name__ == "__main__":
