@@ -1,5 +1,10 @@
 name: Build Release Executables
 
+# Required permissions for GITHUB_TOKEN
+permissions:
+  contents: write  # Required to upload files to releases
+  id-token: write  # Required for authentication
+
 on:
   release:
     types: [created]
@@ -40,6 +45,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: EWI-LongTone-Visualizer-Windows.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-macos:
     runs-on: macos-latest
@@ -71,6 +78,9 @@ jobs:
         path: EWI-LongTone-Visualizer-macOS.zip
     
     - name: Upload to release
+      if: github.event_name == 'release'
       uses: softprops/action-gh-release@v1
       with:
         files: EWI-LongTone-Visualizer-macOS.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
