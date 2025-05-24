@@ -1,0 +1,87 @@
+name: Build Release Executables
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r build_requirements.txt
+    
+    - name: Build Windows executable
+      run: python build_executable.py
+    
+    - name: Create ZIP archive
+      run: |
+        cd release-windows
+        7z a -tzip ../EWI-LongTone-Visualizer-Windows.zip *
+    
+    - name: Upload Windows artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: EWI-LongTone-Visualizer-Windows
+        path: EWI-LongTone-Visualizer-Windows.zip
+    
+    - name: Upload to release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./EWI-LongTone-Visualizer-Windows.zip
+        asset_name: EWI-LongTone-Visualizer-Windows.zip
+        asset_content_type: application/zip
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r build_requirements.txt
+    
+    - name: Build macOS executable
+      run: python build_executable.py
+    
+    - name: Create ZIP archive
+      run: |
+        cd release-macos
+        zip -r ../EWI-LongTone-Visualizer-macOS.zip *
+    
+    - name: Upload macOS artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: EWI-LongTone-Visualizer-macOS
+        path: EWI-LongTone-Visualizer-macOS.zip
+    
+    - name: Upload to release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./EWI-LongTone-Visualizer-macOS.zip
+        asset_name: EWI-LongTone-Visualizer-macOS.zip
+        asset_content_type: application/zip 
