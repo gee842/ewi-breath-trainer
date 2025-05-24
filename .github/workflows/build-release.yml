@@ -3,7 +3,7 @@ name: Build Release Executables
 on:
   release:
     types: [created]
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build-windows:
@@ -71,7 +71,6 @@ jobs:
         path: EWI-LongTone-Visualizer-macOS.zip
     
     - name: Upload to release
-      if: github.event_name == 'release'
       uses: softprops/action-gh-release@v1
       with:
-        files: EWI-LongTone-Visualizer-macOS.zip 
+        files: EWI-LongTone-Visualizer-macOS.zip
