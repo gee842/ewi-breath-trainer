@@ -42,13 +42,16 @@ def build_executable():
         # Add data files
         "--add-data=README.md:.",
         "--add-data=requirements.txt:.",
-        # Hidden imports for matplotlib backends
+        # Hidden imports for matplotlib backends and dependencies
         "--hidden-import=matplotlib.backends.backend_agg",
+        "--hidden-import=matplotlib.backends.backend_tkinter", 
+        "--hidden-import=PIL",
+        "--hidden-import=PIL.Image",
+        "--hidden-import=PIL._tkinter_finder",
         "--hidden-import=pygame",
         "--hidden-import=numpy",
         # Exclude unnecessary modules to reduce size
         "--exclude-module=tkinter",
-        "--exclude-module=PIL",
         "main.py"
     ]
     
