@@ -131,8 +131,10 @@ macOS may prevent the app from running because it's not from the App Store:
 
 ## Troubleshooting
 - If the app won't open, try running from Terminal: `./EWI-LongTone-Visualizer.app/Contents/MacOS/EWI-LongTone-Visualizer`
+- If you get "ModuleNotFoundError: No module named 'PIL'", rebuild with Pillow included
 - Make sure your MIDI device is connected and recognized by macOS
 - Check Audio MIDI Setup if you have MIDI connection issues
+- For Gatekeeper issues, right-click the app and select "Open" to bypass security warnings
 """
     
     elif platform_name == "windows":
