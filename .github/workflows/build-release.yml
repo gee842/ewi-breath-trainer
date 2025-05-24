@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
@@ -30,21 +30,16 @@ jobs:
         7z a -tzip ../EWI-LongTone-Visualizer-Windows.zip *
     
     - name: Upload Windows artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: EWI-LongTone-Visualizer-Windows
         path: EWI-LongTone-Visualizer-Windows.zip
     
     - name: Upload to release
       if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./EWI-LongTone-Visualizer-Windows.zip
-        asset_name: EWI-LongTone-Visualizer-Windows.zip
-        asset_content_type: application/zip
+        files: EWI-LongTone-Visualizer-Windows.zip
 
   build-macos:
     runs-on: macos-latest
@@ -52,7 +47,7 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
@@ -70,18 +65,13 @@ jobs:
         zip -r ../EWI-LongTone-Visualizer-macOS.zip *
     
     - name: Upload macOS artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: EWI-LongTone-Visualizer-macOS
         path: EWI-LongTone-Visualizer-macOS.zip
     
     - name: Upload to release
       if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./EWI-LongTone-Visualizer-macOS.zip
-        asset_name: EWI-LongTone-Visualizer-macOS.zip
-        asset_content_type: application/zip 
+        files: EWI-LongTone-Visualizer-macOS.zip 
