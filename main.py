@@ -44,7 +44,7 @@ class LongToneVisualizer:
         
         # Set up the display
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("EWI Long Tone Practice")
+        pygame.display.set_caption("EWI Breath Trainer")
         self.font = pygame.font.SysFont("Arial", 24)
         self.small_font = pygame.font.SysFont("Arial", 16)
         self.large_font = pygame.font.SysFont("Arial", 48)
